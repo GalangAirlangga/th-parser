@@ -1,0 +1,56 @@
+{
+    "name": "terminalhero/iso8583",
+    "description": "Enterprise, configuration-driven ISO8583 parser and builder library for Laravel and PHP",
+    "keywords": [
+        "laravel",
+        "php",
+        "iso8583",
+        "parser",
+        "builder",
+        "payment-gateway",
+        "switching",
+        "emv",
+        "tlv",
+        "jpos",
+        "banking",
+        "fintech"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Galang Airlangga",
+            "email": "email@galang.id"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^12.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0 || ^11.0",
+        "orchestra/testbench": "^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "TerminalHero\\Iso8583\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TerminalHero\\Iso8583\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "TerminalHero\\Iso8583\\Iso8583ServiceProvider"
+            ],
+            "aliases": {
+                "Iso8583": "TerminalHero\\Iso8583\\Facades\\Iso8583"
+            }
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

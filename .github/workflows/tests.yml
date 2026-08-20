@@ -1,0 +1,39 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        php: ['8.2', '8.3', '8.4']
+        laravel: ['12.*']
+        testbench: ['^10.0']
+
+    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, json, bcmath, fileinfo
+          coverage: none
+
+      - name: Install dependencies
+        run: |
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --dev --no-interaction --no-update
+          composer update --with-all-dependencies --prefer-dist --no-interaction
+
+      - name: Execute tests
+        run: vendor/bin/phpunit --configuration phpunit.xml
